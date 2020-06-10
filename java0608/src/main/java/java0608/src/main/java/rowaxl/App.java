@@ -2,7 +2,7 @@ package java0608.src.main.java.rowaxl;
 
 import java.util.Scanner;
 
-import java0608.src.Access3.Access3;
+import java0608.src.Access3;
 
 /**
  * Hello world!
