@@ -1,25 +1,27 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
-public class Main {
+public class JavaLab {
 
   public static void main(String[] args) {
     String selected = args[0];
-    Main lab = new Main();
+    JavaLab lab = new JavaLab();
 
     switch (selected) {
       case "1":
-      lab.checkPrime();
-      break;
+        lab.checkPrime();
+        break;
 
       case "2":
-      lab.printDArr();
-      break;
+        lab.printDArr();
+        break;
 
       case "3":
-      lab.printSquare();
-      break;
+        lab.printSquare();
+        break;
 
       case "4":
+        lab.findSecondSmallNum();
         break;
 
       default:
@@ -34,6 +36,7 @@ public class Main {
 
     Scanner scanner = new Scanner(System.in);
     int number = scanner.nextInt();
+    scanner.close();
 
     System.out.printf("%d is %s\n", number, isPrime(number) ? "Prime number" : "NOT prime number");
   }
@@ -65,7 +68,7 @@ public class Main {
       System.out.println();
     }
   }
-  
+
   // Q3
   public void printSquare() {
     for (int i = 0; i < 6; i++) {
@@ -85,6 +88,22 @@ public class Main {
 
   // Q4
   public void findSecondSmallNum() {
-    
+    System.out.println("Enter a length of array:");
+
+    Scanner scanner = new Scanner(System.in);
+    int length = scanner.nextInt();
+
+    int[] numbers = new int[length];
+    int i = 0;
+
+    while (i < length) {
+      System.out.println("Enter a number of array:");
+      numbers[i] = scanner.nextInt();
+      i++;
+    }
+    scanner.close();
+
+    Arrays.sort(numbers);
+    System.out.printf("The second smallest number is: %d\n", numbers[1]);
   }
 }
