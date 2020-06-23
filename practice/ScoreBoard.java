@@ -2,6 +2,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -28,8 +30,9 @@ class ScoreBoard {
     scanner.close();
 
     // TreeMap always sorted by comparator
-    Student highestScored = scoreBoard.firstEntry().getKey();
-    System.out.printf("Highest scored(%d) student is: %s\n", highestScored.getScore(), highestScored.getName());
+    List<Student> studentList = new ArrayList<Student>(scoreBoard.keySet());
+    System.out.printf("Highest scored student is: %s (%d)\n", studentList.get(0).getName(), studentList.get(0).getScore());
+    System.out.printf("Second highest scored student is: %s (%d)\n", studentList.get(1).getName(), studentList.get(1).getScore());
   }
 
   static class StudentComp implements Comparator<Student> {
