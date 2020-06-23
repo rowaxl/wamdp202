@@ -13,14 +13,21 @@ class ScoreBoard {
     int length = scanner.nextInt();
 
     TreeMap<Student, String> scoreBoard = new TreeMap<Student, String>(new StudentComp());
-    while (scoreBoard.size() < length) {
-      System.out.println("Enter a name of student and score:");
-      String name = scanner.next();
-      Integer score = scanner.nextInt();
-      scoreBoard.put(new Student(name, score), name);
-    }
+    System.out.println("Enter a name of student and score");
 
+    while (scoreBoard.size() < length) {
+      System.out.printf("Student(%d) Name: ", scoreBoard.size() + 1);
+      String name = scanner.next();
+
+      System.out.printf("Student(%d) Score: ",  scoreBoard.size() + 1);
+      Integer score = scanner.nextInt();
+
+      scoreBoard.put(new Student(name, score), name);
+      System.out.println("");
+    }
     scanner.close();
+
+    // TreeMap always sorted by comparator
     Student highestScored = scoreBoard.firstEntry().getKey();
     System.out.printf("Highest scored(%d) student is: %s\n", highestScored.getScore(), highestScored.getName());
   }
