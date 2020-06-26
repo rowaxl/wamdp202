@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.text.DecimalFormat;
 
@@ -21,8 +24,24 @@ public class Lottery3 {
       System.exit(1);
     }
 
-    List<Integer> lottery = List.of((int) (Math.random() * 9) + 1, (int) (Math.random() * 10),
-        (int) (Math.random() * 10));
+    if (checkStringDuplicate(input)) {
+      System.out.println("You should use only unique numbers.");
+      System.exit(1);
+    }
+
+    List<Integer> lottery = new ArrayList<Integer>();
+
+    while (lottery.size() < 3) {
+      if (lottery.size() == 0) {
+        lottery.add((int) (Math.random() * 9) + 1);
+      } else {
+        int randomNum = (int) (Math.random() * 10);
+
+        if (!lottery.contains(randomNum)) {
+          lottery.add(randomNum);
+        }
+      }
+    }
 
     int prize = 0;
 
@@ -30,30 +49,64 @@ public class Lottery3 {
 
     List<Integer> guess = Arrays.stream(input.split("")).map(e -> Integer.valueOf(e)).collect(Collectors.toList());
 
+    int matched = checkMatchedDigit(lottery, guess);
+
+    if (matched == 0) {
+      System.out.println("No matching numbers!");
+      System.exit(0);
+    }
+
     if (lottery.equals(guess)) { // exact match
       prize = 1000000;
-    } else if (checkMatchedDigit(lottery, guess) == lottery.size() + guess.size()) { // three digits matched
+    } else if (matched == lottery.size() + guess.size()) { // three digits matched
       prize = 30000;
-    } else if (
-      checkMatchedDigit(lottery, guess) < lottery.size() + guess.size()
-      && checkMatchedDigit(lottery, guess) > 0) { // 1 ~ 2 digits matched
-        prize = 10000;
+    } else if (matched < lottery.size() + guess.size()) { // 1 ~ 2 digits matched
+      prize = 10000;
     }
 
     DecimalFormat formatter = new DecimalFormat("###,###");
 
-    System.out.println(prize == 0 ? "No matching number founds" : String.format("You wins $%s!", formatter.format(prize)));
+    System.out.printf("You wins $%s!", formatter.format(prize));
   }
 
   public static int checkMatchedDigit(List<Integer> target, List<Integer> compare) {
-    int matched = 0;
+    Map<Integer, Integer> numMap = new HashMap<Integer, Integer>();
     for (Integer i : compare) {
-      matched += target.contains(i) ? 1 : 0;
+      if (numMap.containsKey(i)) {
+        numMap.put(i, numMap.get(i) + 1);
+      } else {
+        numMap.put(i, 1);
+      }
     }
     for (Integer i : target) {
-      matched += compare.contains(i) ? 1 : 0;
+      if (numMap.containsKey(i)) {
+        numMap.put(i, numMap.get(i) + 1);
+      } else {
+        numMap.put(i, 1);
+      }
+    }
+
+    if (numMap.keySet().size() >= target.size() + compare.size()) {
+      return 0;
+    }
+
+    int matched = 0;
+    for (Integer e : numMap.values()) {
+      if (e > 1)
+        matched += e;
     }
 
     return matched;
   }
+
+  public static boolean checkStringDuplicate(CharSequence g) {
+    for (int i = 0; i < g.length(); i++) {
+        for (int j = i + 1; j < g.length(); j++) {
+            if (g.charAt(i) == g.charAt(j)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 }
