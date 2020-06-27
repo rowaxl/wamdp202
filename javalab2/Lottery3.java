@@ -1,11 +1,12 @@
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.text.DecimalFormat;
+
 
 public class Lottery3 {
   public static void main(String[] args) {
@@ -51,52 +52,29 @@ public class Lottery3 {
 
     int matched = checkMatchedDigit(lottery, guess);
 
-    if (matched == 0) {
+    if (matched == 6) {
       System.out.println("No matching numbers!");
       System.exit(0);
     }
 
     if (lottery.equals(guess)) { // exact match
       prize = 1000000;
-    } else if (matched == lottery.size() + guess.size()) { // three digits matched
+    } else if (matched == lottery.size()) { // three digits matched
       prize = 30000;
-    } else if (matched < lottery.size() + guess.size()) { // 1 ~ 2 digits matched
+    } else if (matched > lottery.size()) { // 1 ~ 2 digits matched
       prize = 10000;
     }
 
     DecimalFormat formatter = new DecimalFormat("###,###");
 
-    System.out.printf("You wins $%s!", formatter.format(prize));
+    System.out.printf("You wins $%s!\n", formatter.format(prize));
   }
 
   public static int checkMatchedDigit(List<Integer> target, List<Integer> compare) {
-    Map<Integer, Integer> numMap = new HashMap<Integer, Integer>();
-    for (Integer i : compare) {
-      if (numMap.containsKey(i)) {
-        numMap.put(i, numMap.get(i) + 1);
-      } else {
-        numMap.put(i, 1);
-      }
-    }
-    for (Integer i : target) {
-      if (numMap.containsKey(i)) {
-        numMap.put(i, numMap.get(i) + 1);
-      } else {
-        numMap.put(i, 1);
-      }
-    }
+    Set<Integer> set = new HashSet<Integer>(target);
+    set.addAll(compare);
 
-    if (numMap.keySet().size() >= target.size() + compare.size()) {
-      return 0;
-    }
-
-    int matched = 0;
-    for (Integer e : numMap.values()) {
-      if (e > 1)
-        matched += e;
-    }
-
-    return matched;
+    return set.size();
   }
 
   public static boolean checkStringDuplicate(CharSequence g) {
