@@ -6,18 +6,20 @@ public class ApplicationDriver {
 		// TODO Auto-generated method stub
 
 		Client client = new Client("Ali", "Vancouver", "778");
-		// PaintingProvider provider = new PaintingProvider("David", "Burnaby", "YourBestPainter");
-		// client.setPaintingProvider(provider);
-		// provider.receiveService();
+		PaintingProvider provider = new PaintingProvider("David", "Burnaby", "YourBestPainter");
+		client.setPaintingProvider(provider);
+		provider.receiveService();
 		
-		// CleaningProvider cProvider = new CleaningProvider();
-		// client.setCleaniningProvider(cProvider);
-		// cProvider.receiveService();
+		CleaningProvider cProvider = new CleaningProvider();
+		client.setCleaniningProvider(cProvider);
+		cProvider.receiveService();
 		
-		// CarRepairServiceProvider carRepairProvider = new CarRepairServiceProvider();
-		// client.setCarRepairProvider(carRepairProvider);
-		// carRepairProvider.receiveService();
+		// P0-1
+		CarRepairServiceProvider carRepairProvider = new CarRepairServiceProvider();
+		client.setCarRepairProvider(carRepairProvider);
+		carRepairProvider.receiveService();
 
+		// P0-2
 		HomeServiceProvider homeServiceProvider = new HomeServiceProvider();
 		client.setHomeServiceProvider(homeServiceProvider);
 		homeServiceProvider.receiveBabySittingService();
@@ -26,6 +28,11 @@ public class ApplicationDriver {
 		System.out.println();
 		homeServiceProvider.receiveWashingService();
 		System.out.println();
+
+		// P0-3
+		StudentServiceProvider studentServiceProvider = new StudentServiceProvider();
+		client.setStudentServiceProvider(studentServiceProvider);
+		studentServiceProvider.receiveStudentService();
 
 //		String description = "Paint my bedroom";
 //		String startDate = "May 2019";

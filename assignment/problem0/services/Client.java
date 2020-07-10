@@ -1,7 +1,8 @@
 package services;
 
 public class Client
-		implements ServiceProtocolInterface, CleaningServiceProtocolInterface, CarReipairServiceProtocolInterface, HomeServicesInterface
+		implements ServiceProtocolInterface, CleaningServiceProtocolInterface, CarReipairServiceProtocolInterface,
+		HomeServicesInterface, StudentServiceInterface
 	{
 
 	private String name;
@@ -11,6 +12,7 @@ public class Client
 	private CleaningProvider cleaningProvider;
 	private CarRepairServiceProvider carRepairProvider;
 	private HomeServiceProvider homeServiceProvider;
+	private StudentServiceProvider studentServiceProvider;
 	
 	public Client(String name, String address, String contactNo) {
 		super();
@@ -56,6 +58,11 @@ public class Client
 	public void setHomeServiceProvider(HomeServiceProvider homeServiceProvider) {
 		this.homeServiceProvider = homeServiceProvider;
 		this.homeServiceProvider.delegate = this;
+	}
+
+	public void setStudentServiceProvider(StudentServiceProvider studentServiceProvider) {
+		this.studentServiceProvider = studentServiceProvider;
+		this.studentServiceProvider.delegate = this;
 	}
 	//=======================
 //	@Override
@@ -137,5 +144,11 @@ public class Client
 	public BabysittingService babysittingService() {
 		BabysittingService babysitting = new BabysittingService("Care my son", "Nuts", 4);
 		return babysitting;
+	}
+
+	@Override
+	public StudentService studentService() {
+		StudentService studentService = new StudentService("Semester GPA", "GPA_2020.pdf");
+		return studentService;
 	}
 }
