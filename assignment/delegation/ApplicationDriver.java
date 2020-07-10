@@ -19,14 +19,14 @@ public class ApplicationDriver {
 		// carRepairProvider.receiveService();
 
 		HomeServiceProvider homeServiceProvider = new HomeServiceProvider();
-		homeServiceProvider.delegate = client;
+		client.setHomeServiceProvider(homeServiceProvider);
 		homeServiceProvider.receiveBabySittingService();
 		System.out.println();
 		homeServiceProvider.receiveCookingService();
 		System.out.println();
 		homeServiceProvider.receiveWashingService();
 		System.out.println();
-		
+
 //		String description = "Paint my bedroom";
 //		String startDate = "May 2019";
 //		String expectedEndDate = "June 2019";

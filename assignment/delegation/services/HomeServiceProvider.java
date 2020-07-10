@@ -1,7 +1,7 @@
 package services;
 
 public class HomeServiceProvider {
-  public HomeServicesInterface delegate;
+  public HomeServicesInterface delegate; // client
 
   public void receiveCookingService() {
     CookingService s = this.delegate.cookingService();
