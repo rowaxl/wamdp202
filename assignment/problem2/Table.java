@@ -1,14 +1,14 @@
 import java.util.List;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 /**
  * Table
  */
 public class Table<T extends TableRowInterface> {
-  public ArrayList<T> rows;
+  public List<T> rows;
   private String title;
 
   public Table(String title) {
-    this.rows = new ArrayList<T>();
+    // this.rows = new ArrayList<T>();
     this.title = title;
   }
 

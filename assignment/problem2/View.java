@@ -28,24 +28,24 @@ public class View {
     List<StudentData> students = List.of(s1, s2, s3, s4, s5, s6);
     v.setStudents(students);
 
+    List<StudentRow> gradeAStudents = v.getStudents().stream()
+        .filter(student -> student.gpa >= 80)
+        .map((StudentData data) -> new StudentRow(data))
+        .collect(Collectors.toList());
+
+    List<StudentRow> gradeBStudents = v.getStudents().stream()
+        .filter(student -> student.gpa < 80)
+        .map((StudentData data) -> new StudentRow(data))
+        .collect(Collectors.toList());
+
     Table classA = new Table<StudentRow>("Classs Grade: A");
-
-    List<StudentData> gradeAStudents = v.getStudents().stream().filter(student -> student.gpa >= 80).collect(Collectors.toList());
-    List<StudentData> gradeBStudents = v.getStudents().stream().filter(student -> student.gpa < 80).collect(Collectors.toList());
-
-    for (int i = 0; i < gradeAStudents.size(); i++) {
-      StudentRow row = new StudentRow(String.valueOf(i), gradeAStudents.get(i));
-      classA.rows.add(row);
-    };
+    classA.rows = gradeAStudents;
     classA.print();
 
     System.out.println();
 
     Table classB = new Table<StudentRow>("Class Grade: B");
-    for (int i = 0; i < gradeBStudents.size(); i++) {
-      StudentRow row = new StudentRow(String.valueOf(i), gradeBStudents.get(i));
-      classB.rows.add(row);
-    };
+    classB.rows = gradeBStudents;
     classB.print();
   }
 }
