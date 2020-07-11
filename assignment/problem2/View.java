@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * View
@@ -27,10 +28,6 @@ public class View {
 
     List<StudentData> students = List.of(s1, s2, s3, s4, s5, s6);
     v.setStudents(students);
-    
-    List<StudentRow> wholeStudents = v.getStudents().stream()
-        .map((StudentData data) -> new StudentRow(data))
-        .collect(Collectors.toList());
 
     List<StudentRow> gradeAStudents = v.getStudents().stream()
         .filter(student -> student.gpa >= 80)
@@ -55,7 +52,7 @@ public class View {
     System.out.println();
 
     Table school = new Table<StudentRow>("School");
-    school.rows = wholeStudents;
+    school.rows = Stream.concat(gradeAStudents.stream(), gradeBStudents.stream()).collect(Collectors.toList());
     school.print();
   }
 }
